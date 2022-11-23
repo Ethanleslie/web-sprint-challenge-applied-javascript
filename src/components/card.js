@@ -1,5 +1,7 @@
 import axios from "axios";
 
+
+
 const Card = (article) => {
 const cardWrapper = document.createElement('div');
 const headline = document.createElement('div');
@@ -18,6 +20,20 @@ imgContainer.classList.add('img-container')
 headline.textContent = article.headline;
 img.src = article.authorPhoto;
 authorName.textContent = article.authorName;
+
+cardWrapper.appendChild(headline);
+cardWrapper.appendChild(author);
+author.appendChild(imgContainer);
+imgContainer.appendChild(img)
+author.appendChild(authorName);
+
+
+cardWrapper.addEventListener('click', ()=>{
+  console.log('headline')
+})
+
+
+return cardWrapper;
 
   // TASK 5
   // ---------------------
@@ -39,16 +55,31 @@ authorName.textContent = article.authorName;
   //
 }
 
-const cardAppender = (selector) => {
-  for (let i = 0; i < articles.length; i++){
-    cardAppender(articles[i])
-  }
+// console.log(Card('headline', 'authorPhoto', 'authorName'))
 
-  axios.get(`http://localhost:5001/api/articles${selector}`)
+
+
+const cardAppender = (selector) => {
+  axios.get(`http://localhost:5001/api/articles`)
   .then(resp => {
-    document.querySelector('.card').appendChild(Card(resp.data))
-    .catch(err => console.error(err))
-  })
+   for(let i = 0; i < resp.data.articles.bootstrap.length; i++) {
+      document.querySelector(selector).appendChild(Card(resp.data.articles.bootstrap[i]))
+   }
+      for(let i = 0; i < resp.data.articles.javascript.length; i++) {
+        document.querySelector(selector).appendChild(Card(resp.data.articles.javascript[i]))
+  }
+  for(let i = 0; i < resp.data.articles.technology.length; i++) {
+    document.querySelector(selector).appendChild(Card(resp.data.articles.technology[i]))
+}
+for(let i = 0; i < resp.data.articles.jquery.length; i++) {
+  document.querySelector(selector).appendChild(Card(resp.data.articles.jquery[i]))
+}
+for(let i = 0; i < resp.data.articles.node.length; i++) {
+  document.querySelector(selector).appendChild(Card(resp.data.articles.node[i]))
+}
+ })
+    .catch(err => console.log(err))
+  
 
 
 

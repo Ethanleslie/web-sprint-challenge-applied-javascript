@@ -5,19 +5,31 @@ const topicsDivOne = document.createElement('div');
 const topicsDivTwo = document.createElement('div');
 const topicsDivThree = document.createElement('div');
 const topicsDivFour = document.createElement('div');
-
+const topicsDivFive = document.createElement('div')
+const topicsDivSix = document.createElement('div')
 
 topicsDivOne.classList.add('topics');
 topicsDivTwo.classList.add('tab');
 topicsDivThree.classList.add('tab');
 topicsDivFour.classList.add('tab');
+topicsDivFive.classList.add('tab');
+topicsDivSix.classList.add('tab')
 
 
-topicsDivTwo.textContent = "javascript";
-topicsDivThree.textContent = "bootstrap";
-topicsDivFour.textContent = "technology";
+topicsDivTwo.textContent = topics[0];
+topicsDivThree.textContent = topics[1] ;
+topicsDivFour.textContent = topics[2];
+topicsDivFive.textContent = topics[3];
+topicsDivSix.textContent = topics[4];
+
+topicsDivOne.appendChild(topicsDivTwo);
+topicsDivOne.appendChild(topicsDivThree);
+topicsDivOne.appendChild(topicsDivFour);
+topicsDivOne.appendChild(topicsDivFive);
+topicsDivOne.appendChild(topicsDivSix);
 
 
+return topicsDivOne;
 
 
 
@@ -37,18 +49,23 @@ topicsDivFour.textContent = "technology";
   // </div>
   //
 }
+console.log(Tabs(['javascript','bootstrap','technology']))
 
+  
+  
 const tabsAppender = (selector) => {
+  axios.get(`http://localhost:5001/api/topics`)
+  .then(resp => {
+   // console.log(resp.data.topics)
+   document.querySelector(selector).appendChild(Tabs(resp.data.topics))
+  })
+  .catch(err => console.log(err))
+  
 
-for (let i = 0; i < topics.length; i++){
-  tabsAppender(topics[i])
-}
+  
+  
+    
 
-axios.get(`http://localhost:5001/api/topics${selector}`)
-.then(resp => {
-document.querySelector('.tab').appendChild(Tabs(resp.data))
-})
-.catch(err => console.errror(err))
 
   // TASK 4
   // ---------------------

@@ -13,7 +13,12 @@ headerSpan1.textContent = date;
 headerTitle.textContent = title;
 headerSpan2.textContent = temp;
 
+headerWrapper.appendChild(headerSpan1);
+headerWrapper.appendChild(headerTitle);
+headerWrapper.appendChild(headerSpan2)
 
+
+return headerWrapper;
 
 
   // TASK 1
@@ -29,10 +34,11 @@ headerSpan2.textContent = temp;
   //  </div>
   //
 }
+console.log(Header('title', 'date', 'temp'))
 
 const headerAppender = (selector) => {
 
-  document.querySelector('div.header').appendChild(Header(selector))
+   document.querySelector(selector).appendChild(Header('title', 'date', 'temp'))
   
   
   // TASK 2
